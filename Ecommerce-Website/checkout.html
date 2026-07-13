@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <section id="header">
+        <a href="#"><img src="img/logo.png" class="logo" alt="" /></a>
+        <div>
+            <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="cart.html" class="active">Cart</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="cart.html"><i class='bx bx-shopping-bag'></i></a>
+            <i id="bar" class='bx bx-menu'></i>
+        </div>
+    </section>
+
+    <section id="checkout" class="section-p1">
+        <h2>Order Summary</h2>
+        <div id="order-items"></div>
+        <h3 id="final-total">Total: ₹0</h3>
+        <button class="normal" id="place-order">Place Order</button>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <p>© 2026, E-Commerce Group-A</p>
+        </div>
+    </footer>
+
+    <script>
+        // Load checkout cart details
+        const checkoutCart = JSON.parse(localStorage.getItem('checkoutCart')) || [];
+        const orderItemsDiv = document.getElementById('order-items');
+        let total = 0;
+        checkoutCart.forEach(item => {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'checkout-item';
+            itemDiv.innerHTML = `
+                <img src="${item.image}" width="60" style="vertical-align:middle; margin-right:10px;"/>
+                <span>${item.name}</span>
+                <span style="float:right;">x${item.quantity} — ₹${parseInt(item.price.replace(/[^0-9]/g, "")) * item.quantity}</span>
+            `;
+            orderItemsDiv.appendChild(itemDiv);
+            total += parseInt(item.price.replace(/[^0-9]/g, "")) * item.quantity;
+        });
+        // Apply coupon if present
+        const activeCoupon = JSON.parse(localStorage.getItem('cara_active_coupon'));
+        let discount = 0;
+        if (activeCoupon && total > 0) {
+            if (activeCoupon.type === 'percent') discount = total * (activeCoupon.value / 100);
+            else if (activeCoupon.type === 'flat') discount = Math.min(activeCoupon.value, total);
+        }
+
+        const finalTotal = Math.max(0, total - discount);
+
+        // Render breakdown
+        orderItemsDiv.insertAdjacentHTML('afterend', `
+            <div id="checkout-breakdown" style="margin-top:12px;">
+                <div>Subtotal: ₹${total}</div>
+                ${discount > 0 ? `<div style="color:#088178">Discount (${activeCoupon.code}): - ₹${discount.toFixed(0)}</div>` : ''}
+                <div style="font-weight:700; margin-top:6px;">Final Total: ₹${finalTotal.toFixed(0)}</div>
+            </div>
+        `);
+
+        document.getElementById('place-order').addEventListener('click', () => {
+            alert('Order Placed Successfully!');
+            // Clear carts and applied coupon
+            localStorage.removeItem('cara_cart');
+            localStorage.removeItem('checkoutCart');
+            localStorage.removeItem('cara_active_coupon');
+            window.location.href = 'cart.html';
+        });
+    </script>
+</body>
+
+</html>
