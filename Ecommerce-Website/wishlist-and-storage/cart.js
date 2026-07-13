@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Only run if cart-items tbody exists
     if (document.getElementById('cart-items')) {
         renderCartTable();
-        initializeCouponLogic();
+        // coupon logic moved to wishlist-and-storage/coupon.js
     }
 });
 
@@ -57,7 +57,8 @@ function renderCartTable() {
         tbody.appendChild(tr);
     });
 
-    calculateAndShowTotals();
+    // calculateAndShowTotals is provided by wishlist-and-storage/coupon.js
+    if (typeof calculateAndShowTotals === 'function') calculateAndShowTotals();
 }
 
 // Update the quantity of a cart item
@@ -97,7 +98,7 @@ function removeCartItem(id) {
 function calculateAndShowTotals() {
     const cart = getCart();
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-    
+
     // Check if there is an active coupon applied in localStorage
     const activeCoupon = JSON.parse(localStorage.getItem('cara_active_coupon'));
     let discount = 0;
@@ -183,7 +184,7 @@ function initializeCouponLogic() {
 
     applyBtn.addEventListener('click', () => {
         const code = input.value.trim().toUpperCase();
-        
+
         // Remove previous message if any
         const oldMsg = couponContainer.querySelector('.coupon-message');
         if (oldMsg) oldMsg.remove();
@@ -232,3 +233,29 @@ function initializeCouponLogic() {
         couponContainer.appendChild(msgDiv);
     });
 }
+
+// Checkout button handler: store cara_cart into checkoutCart and redirect
+document.addEventListener('DOMContentLoaded', () => {
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    if (!checkoutBtn) return;
+
+    checkoutBtn.addEventListener('click', () => {
+        const cart = getCart();
+        if (!cart || cart.length === 0) {
+            if (typeof showToast === 'function') showToast('Your cart is empty!');
+            else alert('Your cart is empty!');
+            return;
+        }
+
+        // Normalize items for checkout page (fields expected by checkout.html)
+        const checkoutItems = cart.map(item => ({
+            name: item.name,
+            price: '₹' + item.price,
+            image: item.img,
+            quantity: item.qty
+        }));
+
+        localStorage.setItem('checkoutCart', JSON.stringify(checkoutItems));
+        window.location.href = 'checkout.html';
+    });
+});

@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -113,12 +114,12 @@ body {
 }
 
 #navbar li a:hover,
-#navbar li a.active{
+#navbar li a.active {
   color: #088178;
 }
 
 #navbar li a.active::after,
-#navbar li a:hover::after{
+#navbar li a:hover::after {
   content: "";
   width: 30%;
   height: 2px;
@@ -230,7 +231,7 @@ body {
   text-align: center;
 }
 
-#product1 .pro-container{
+#product1 .pro-container {
   display: flex;
   justify-content: space-between;
   padding-top: 20px;
@@ -250,7 +251,7 @@ body {
   position: relative;
 }
 
-#product1 .pro img.shirt{
+#product1 .pro img.shirt {
   width: 100%;
   border-radius: 20px;
 }
@@ -258,7 +259,7 @@ body {
 #product1 .pro:hover {
   box-shadow: 20px 20px 54px rgba(28, 77, 161, 0.06);
   transform: scale(1.08);
-} 
+}
 
 #product1 .pro .des {
   text-align: start;
@@ -311,7 +312,7 @@ body {
   background-image: url("./img/banner/b2.jpg");
   width: 100%;
   height: 30vh;
-  background-size:cover;
+  background-size: cover;
   background-position: center;
 }
 
@@ -332,7 +333,7 @@ body {
 
 #banner button:hover {
   background-color: #088178;
-  color: #fff; 
+  color: #fff;
 }
 
 #sm-banner {
@@ -349,7 +350,7 @@ body {
   background-image: url("./img/banner/b17.jpg");
   min-width: 600px;
   height: 50vh;
-  background-size:cover;
+  background-size: cover;
   background-position: center;
   padding: 30px;
   margin: 0 25px;
@@ -398,7 +399,7 @@ body {
   background-image: url("./img/banner/b7.jpg");
   min-width: 30%;
   height: 30vh;
-  background-size:cover;
+  background-size: cover;
   background-position: center;
   padding: 20px;
   margin-bottom: 20px;
@@ -524,14 +525,14 @@ footer .follow h4 {
   padding-bottom: 10px;
 }
 
-footer .install .row img{
+footer .install .row img {
   border: 1px solid #088178;
   border-radius: 6px;
 }
 
 footer .install img {
   margin: 10px 0 15px 0;
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 footer .follow i:hover,
@@ -563,9 +564,50 @@ footer .copyright {
   color: #fff;
 }
 
+/* Dark mode adjustments for hero/main sections to improve contrast */
+.dark-mode #main {
+  /* darken background image for better text contrast */
+  background-color: rgba(0, 0, 0, 0.55);
+  background-blend-mode: multiply;
+}
+
+.dark-mode #main h1,
+.dark-mode #main h4,
+.dark-mode #main p {
+  color: #f5fbfc;
+  /* lighter text */
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.dark-mode #main button {
+  color: #0b2b25;
+  /* keep button text readable if using green background image */
+}
+
+/* Also improve contrast for page header/banner sections in dark mode */
+.dark-mode #page-header,
+.dark-mode #banner,
+.dark-mode #sm-banner,
+.dark-mode #banner3 {
+  background-color: rgba(0, 0, 0, 0.45);
+  background-blend-mode: multiply;
+}
+
+.dark-mode #page-header h2,
+.dark-mode #page-header p,
+.dark-mode #banner h4,
+.dark-mode #banner h2,
+.dark-mode #sm-banner h4,
+.dark-mode #sm-banner h2,
+.dark-mode #banner3 h2 {
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
 #pagination {
   text-align: center;
 }
+
 #pagination a {
   text-decoration: none;
   background-color: #088178;
@@ -582,7 +624,7 @@ footer .copyright {
 
 /* Single Product */
 
-#prodetails{
+#prodetails {
   display: flex;
   margin-top: 20px;
 }
@@ -607,11 +649,11 @@ footer .copyright {
   padding-top: 30px;
 }
 
-#prodetails .single-pro-details h4{
+#prodetails .single-pro-details h4 {
   padding: 40px 0 20px 0;
 }
 
-#prodetails .single-pro-details h2{
+#prodetails .single-pro-details h2 {
   font-size: 26px;
 }
 
@@ -880,7 +922,7 @@ footer .copyright {
 }
 
 #cart table img {
-  width: 70px; 
+  width: 70px;
 }
 
 #cart table td:nth-child(1) {
@@ -990,7 +1032,7 @@ footer .copyright {
   .section-p1 {
     padding: 40px;
   }
-   
+
   #navbar {
     display: flex;
     flex-direction: column;
@@ -1070,8 +1112,8 @@ footer .copyright {
   }
 
   #sm-banner .banner-box {
-     min-width: 100%;
-     height: 30vh;
+    min-width: 100%;
+    height: 30vh;
   }
 
   #banner3 {
@@ -1101,12 +1143,15 @@ footer .copyright {
   .section-p1 {
     padding: 20px;
   }
+
   #header {
     padding: 10px 30px;
   }
+
   h1 {
     font-size: 38px;
   }
+
   h2 {
     font-size: 32px;
   }
@@ -1115,37 +1160,48 @@ footer .copyright {
     padding: 0 20px;
     background-position: 50%;
   }
+
   #feature {
     justify-content: space-between;
   }
+
   #feature .fe-box {
     width: 155px;
     margin: 0 0 15px 0;
   }
+
   #product1 .pro {
     width: 100%;
   }
+
   #banner {
     height: 40vh;
   }
+
   #sm-banner .banner-box {
     height: 40vh;
   }
+
   #sm-banner .banner-box2 {
     margin-top: 20px;
   }
+
   #banner3 {
     padding: 0 20px;
   }
+
   #banner3 .banner-box {
     width: 100%;
   }
+
   #newsletter {
     padding: 40px 20px;
   }
+
   #newsletter .form {
     width: 100%;
   }
+
   footer .copyright {
     text-align: start;
     font-size: 12px;
@@ -1166,7 +1222,7 @@ footer .copyright {
     width: 100%;
   }
 
-  /* Blog Page */ 
+  /* Blog Page */
 
   #blog {
     padding: 100px 20px 0 20px;
@@ -1270,7 +1326,7 @@ footer .copyright {
   background: white;
   padding: 6px;
   border-radius: 50%;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1287,7 +1343,7 @@ footer .copyright {
 
 body.dark-mode .wishlist-icon {
   background: #1e293b;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 /* Navbar / mobile toggles & badges */
@@ -1304,7 +1360,8 @@ body.dark-mode .wishlist-icon {
 }
 
 #navbar li {
-  position: relative; /* for badges */
+  position: relative;
+  /* for badges */
 }
 
 /* Coupon Notifications */
@@ -1437,7 +1494,8 @@ body.dark-mode #product1 .pro .des h5 {
 }
 
 body.dark-mode #product1 .pro .des h4 {
-  color: #2dd4bf; /* Neon teal for price tags */
+  color: #2dd4bf;
+  /* Neon teal for price tags */
 }
 
 body.dark-mode #product1 .pro .cart {
@@ -1591,4 +1649,4 @@ body.dark-mode footer .follow i {
 
 body.dark-mode footer .follow i:hover {
   color: #2dd4bf;
-}
+}
