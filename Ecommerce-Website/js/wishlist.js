@@ -40,13 +40,13 @@ function renderWishlistPage() {
         const productCard = document.createElement('div');
         productCard.className = 'pro';
         productCard.setAttribute('data-id', item.id);
-        
-        // Since wishlist.html is in wishlist-and-storage/, adjust image and link relative paths
-        const imgSrc = item.img.startsWith('../') ? item.img : '../' + item.img;
-        
+
+        // Wishlist page is now at the root, so use the saved image path directly.
+        const imgSrc = item.img ? item.img.replace(/^(\.\.\/)+/, '') : '';
+
         productCard.innerHTML = `
             <i class="bx bxs-heart wishlist-icon active"></i>
-            <img class="shirt" src="${imgSrc}" alt="" onclick="window.location.href='../sproduct.html?id=${item.id}';">
+            <img class="shirt" src="${imgSrc}" alt="" onclick="window.location.href='sproduct.html?id=${item.id}';">
             <div class="des" onclick="window.location.href='../sproduct.html?id=${item.id}';">
                 <span>adidas</span>
                 <h5>${item.name}</h5>
@@ -65,7 +65,7 @@ function renderWishlistPage() {
         productCard.querySelector('.wishlist-icon').addEventListener('click', (e) => {
             e.stopPropagation();
             e.preventDefault();
-            
+
             let currentList = getWishlist();
             const idx = currentList.findIndex(i => i.id === item.id);
             if (idx > -1) {
@@ -79,7 +79,7 @@ function renderWishlistPage() {
         productCard.querySelector('.add-to-cart-btn').addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            
+
             addToCart(item.id, item.name, item.price, item.img);
             showToast(`${item.name} added to cart!`);
         });
@@ -153,7 +153,7 @@ function initializeWishlistButtons() {
 
         const imgEl = pro.querySelector('img');
         let img = imgEl ? imgEl.getAttribute('src') : '';
-        
+
         // If image src starts with '../' (meaning we are running on wishlist.html inside a subdirectory),
         // strip the '../' when saving to localStorage so it works on other pages.
         let savedImgPath = img;
@@ -163,7 +163,7 @@ function initializeWishlistButtons() {
 
         const titleEl = pro.querySelector('.des h5');
         const name = titleEl ? titleEl.innerText : 'Product ' + index;
-        
+
         const priceEl = pro.querySelector('.des h4');
         const priceText = priceEl ? priceEl.innerText : '₹0';
         const price = parseInt(priceText.replace(/[^0-9]/g, '')) || 0;
@@ -176,7 +176,7 @@ function initializeWishlistButtons() {
 
         const heart = document.createElement('i');
         heart.className = 'bx bx-heart wishlist-icon';
-        
+
         if (wishlist.some(item => item.id === id)) {
             heart.className = 'bx bxs-heart wishlist-icon active';
         }
@@ -207,7 +207,7 @@ function initializeWishlistButtons() {
             cartBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                
+
                 addToCart(id, name, price, savedImgPath);
                 showToast(`${name} added to cart!`);
             });
@@ -219,13 +219,13 @@ function initializeWishlistButtons() {
 function addToCart(id, name, price, img, qty = 1) {
     let cart = getCart();
     const existingIndex = cart.findIndex(item => item.id === id);
-    
+
     if (existingIndex > -1) {
         cart[existingIndex].qty = parseInt(cart[existingIndex].qty) + parseInt(qty);
     } else {
         cart.push({ id, name, price, img, qty: parseInt(qty) });
     }
-    
+
     localStorage.setItem('cara_cart', JSON.stringify(cart));
     updateHeaderBadges();
 
@@ -288,26 +288,26 @@ function initializeSingleProductPage() {
 
     const btn = detailContainer.querySelector('button');
     const qtyInput = detailContainer.querySelector('input[type="number"]');
-    
+
     if (btn) {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
-            
+
             const name = detailContainer.querySelector('h4').innerText;
             const priceText = detailContainer.querySelector('h2').innerText;
             const price = parseInt(priceText.replace(/[^0-9]/g, '')) || 0;
-            
+
             const mainImg = document.getElementById('MainImg');
             let img = mainImg ? mainImg.getAttribute('src') : '';
-            
+
             let savedImgPath = img;
             if (img.startsWith('../')) {
                 savedImgPath = img.substring(3);
             }
-            
+
             const qty = qtyInput ? parseInt(qtyInput.value) || 1 : 1;
             const id = savedImgPath ? savedImgPath.substring(savedImgPath.lastIndexOf('/') + 1, savedImgPath.lastIndexOf('.')) : 'f1';
-            
+
             addToCart(id, name, price, savedImgPath, qty);
             showToast(`${qty} x ${name} added to cart!`);
         });
