@@ -9,11 +9,11 @@
         <link rel="icon" type="image/x-icon" href="/img/icon1.png">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="product.css"> // product.css is added
     </head>
 
     <body>
         <section id="header">
-            <a href="#"><img src="img/logo.png" class="logo" alt=""></a>
 
             <div>
                 <ul id="navbar">
@@ -38,7 +38,7 @@
         </section> 
 
         <section id="product1" class="section-p1">
-            <div class="pro-container">
+            <div class="pro-container" id="productContainer">  // id=rpoductcontainer is added
                 <div class="pro" onclick="window.location.href='sproduct.html';">
                     <img class="shirt" src="img/products/f1.jpg" alt="">
                     <div class="des">
@@ -370,5 +370,6 @@
         </footer>
 
         <script src="script.js"></script>
+        <script type="module" src="shop.js"></script> //shop.js is added
     </body>
 </html>
