@@ -27,14 +27,12 @@ function renderWishlistPage() {
                 <i class='bx bx-heart' style="font-size: 64px; color: #a0aec0; margin-bottom: 20px; display: block;"></i>
                 <h2>Your Wishlist is Empty</h2>
                 <p>Explore our products and save your favorites here!</p>
-                <button class="normal" onclick="window.location.href='../shop.html'" style="margin-top: 15px;">Shop Now</button>
+                <button class="normal" onclick="window.location.href='shop.html'" style="margin-top: 15px;">Shop Now</button>
             </div>
         `;
         container.style.display = 'block';
         return;
     }
-
-    container.style.display = 'flex';
 
     wishlist.forEach(item => {
         const productCard = document.createElement('div');
